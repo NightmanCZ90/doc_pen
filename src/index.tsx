@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
+import { fetchPlugin } from './plugins/fetch-plugin';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -33,7 +34,7 @@ const App = () => {
       entryPoints: ['index.js'],
       bundle: true,
       write: false,
-      plugins: [unpkgPathPlugin(input)],
+      plugins: [unpkgPathPlugin(), fetchPlugin(input)],
       define: {
         'process.env.NODE_ENV': '"production"',
         global: 'window',
