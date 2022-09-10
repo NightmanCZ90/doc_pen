@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
+import CodeEditor from './components/code-editor';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -67,13 +68,19 @@ const App = () => {
     </html>
   `;
 
-  return <div>
-    <textarea value={input} onChange={e => setInput(e.target.value)} cols={60} rows={10}></textarea>
+  return (
     <div>
-      <button onClick={onClick}>Submit</button>
+      <CodeEditor
+        initialValue={'const a = 1;'}
+        onChange={value => setInput(value)}
+      />
+      <textarea value={input} onChange={e => setInput(e.target.value)} cols={60} rows={10}></textarea>
+      <div>
+        <button onClick={onClick}>Submit</button>
+      </div>
+      <iframe ref={iframe} title='preview' sandbox='allow-scripts' srcDoc={html} />
     </div>
-    <iframe ref={iframe} title='preview' sandbox='allow-scripts' srcDoc={html} />
-  </div>
+  );
 };
 
 root.render(
